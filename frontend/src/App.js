@@ -4,7 +4,7 @@ import Form from "./components/Form.js";
 import Grid from "./components/Grid.js";
 import {useEffect, useState} from "react";
 import { toast, ToastContainer } from "react-toastify";
-// import "react-toastify/dist/react-toastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
 const Container = styled.div`
@@ -29,6 +29,7 @@ function App() {
       const res = await axios.get("http://localhost:8800");
       setUsers(res.data.sort((a,b) => (a.nome > b.nome ? 1 : -1)));
     } catch(error) {
+      console.log('aqui',error)
       toast.error(error);
     }
   }
@@ -41,8 +42,8 @@ function App() {
     <>
     <Container>
       <Title>USUÁRIOS</Title>
-      <Form />
-      <Grid users={users} />
+      <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers} />
+      <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
     </Container>
       <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
       <GlobalStyle/>
